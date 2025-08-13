@@ -4,7 +4,35 @@ app_publisher = "sun"
 app_description = "pdf"
 app_email = "sun@root.com"
 app_license = "mit"
-
+fixtures=[
+    {
+        "dt":"Print Format",
+        "filters":[
+            ["module","=","Qingteng V1"]
+        ]
+    },
+    {
+        "dt":"Server Script",
+        "filters":[
+            ["module","=","Qingteng V1"]
+        ]
+    },
+    {
+        "dt":"Client Script",
+        "filters":[
+            ["module","=","Qingteng V1"]
+        ]
+    },
+    {
+        "dt":"Custom Field",
+        "filters":[
+            ["dt","=","Sales Invoice"]
+        ]
+    }
+]
+patches = [
+    "qingteng_v1.patches.import_translations"
+]
 # Apps
 # ------------------
 

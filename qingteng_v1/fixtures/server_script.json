@@ -1,0 +1,21 @@
+[
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "After Save",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "modified": "2025-08-13 11:22:43.573886",
+  "module": "Qingteng V1",
+  "name": "付款申请message模板修改",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Payment Request",
+  "script": "payment_url = f\"{frappe.utils.get_url()}/api/method/frappe.www.payment.process?token={doc.name}\"\r\n\r\n# 获取 doc 的所有字段和值\r\ndoc_fields = doc.as_dict()\r\n\r\n# 遍历所有字段，替换 {{ doc.xxx }} 变量\r\nfor key, value in doc_fields.items():\r\n    if isinstance(value, (int, float)):\r\n        value = str(value)\r\n    elif not isinstance(value, str):\r\n        continue  # 只处理字符串和数字\r\n    placeholder = f\"{{{{ doc.{key} }}}}\"\r\n    doc.message = doc.message.replace(placeholder, value)\r\n\r\n# 单独处理 {{ payment_url }}\r\ndoc.message = doc.message.replace(\"{{ payment_url }}\", payment_url)\r\n",
+  "script_type": "DocType Event"
+ }
+]

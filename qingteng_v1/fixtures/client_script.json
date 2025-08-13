@@ -1,0 +1,24 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Sales Invoice",
+  "enabled": 1,
+  "modified": "2025-08-13 11:23:10.926645",
+  "module": "Qingteng V1",
+  "name": "默认联系人",
+  "script": "frappe.ui.form.on('Sales Invoice', {\r\n    onload: function(frm) {\r\n        if (!frm.doc.custom_accountant) {\r\n            frm.set_value('custom_accountant', frappe.session.user);\r\n        }\r\n    }\r\n});\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Sales Invoice",
+  "enabled": 1,
+  "modified": "2025-08-13 11:22:59.629615",
+  "module": "Qingteng V1",
+  "name": "联系人邮箱",
+  "script": "frappe.ui.form.on('Sales Invoice', {\r\n    custom_accountant: function(frm) {\r\n        if (frm.doc.custom_accountant) {\r\n            frappe.call({\r\n                method: 'frappe.client.get_value',\r\n                args: {\r\n                    doctype: 'User',\r\n                    filters: { name: frm.doc.custom_accountant },\r\n                    fieldname: ['email', 'full_name']\r\n                },\r\n                callback: function(r) {\r\n                    if (r.message) {\r\n                        frm.set_value('custom_accountant_email', r.message.email);\r\n                        frm.set_value('custom_accountant_name', r.message.full_name || r.message.name);\r\n\r\n                    }\r\n                }\r\n            });\r\n        } \r\n    },\r\n    onload: function(frm) {\r\n        // 页面加载时也尝试填充\r\n        if (frm.doc.custom_accountant && !frm.doc.custom_accountant_email) {\r\n            frm.trigger('custom_accountant');\r\n        }\r\n    }\r\n});\r\n",
+  "view": "Form"
+ }
+]
