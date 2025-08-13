@@ -31,7 +31,8 @@ fixtures=[
     }
 ]
 patches = [
-    "qingteng_v1.patches.import_translations"
+    "qingteng_v1.patches.import_translations",
+    "qingteng_v1.patches.import_logo"
 ]
 # Apps
 # ------------------
